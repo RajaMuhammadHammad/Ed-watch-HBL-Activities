@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EdWatch Corporate Training</title>
+        <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-background"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <div class="nav-logo">
+                <div class="logo-icon">
+                    <!-- Replace with your logo -->
+                    <img src="assests\logo.jpg" alt="EdWatch Logo" class="logo-img">
+                </div>
+                <div class="logo-text">EdWatch</div>
+            </div>
+            
+            <!-- Navigation Links -->
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#activities" class="nav-link">Activities</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            
+            <!-- Mobile Menu Button -->
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Financial Decision Training
+                </h1>
+                <p class="hero-subtitle">
+                    Master the art of financial decision-making with our comprehensive corporate learning solutions designed for modern professionals
+                </p>
+                <div class="hero-buttons">
+                    <a href="#activities" class="btn btn-primary">
+                        🚀 Explore Activities
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities Section -->
+    <section id="activities" class="activities">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Training Activities</h2>
+                <p class="section-subtitle">
+                    Enhance your financial decision-making skills through our interactive training modules designed to transform learning into actionable expertise
+                </p>
+            </div>
+
+            <div class="activities-grid">
+                <!-- Activity 1 -->
+                <div class="activity-card card-blue">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span>🧩</span>
+                        </div>
+                        <h3 class="card-title">Catch the Match</h3>
+                        <p class="card-description">
+                            Map business decisions to the right financial statement and stakeholder through interactive matching exercises.
+                        </p>
+                    </div>
+                    <div class="card-features">
+                        <div class="feature">
+                            <span class="feature-dot dot-green"></span>
+                            12 decision cards to match
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-blue"></span>
+                            4 stakeholders & 3 statements
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-yellow"></span>
+                            Scoring: +1 per correct match
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-red"></span>
+                            Duration: 12 minutes
+                        </div>
+                    </div>
+                    <a href="activity1.html" class="card-button btn-blue">
+                        Start Activity 1
+                    </a>
+                </div>
+
+                <!-- Activity 2 -->
+                <div class="activity-card card-purple">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span>🔎</span>
+                        </div>
+                        <h3 class="card-title">Scavenger Hunt</h3>
+                        <p class="card-description">
+                            Build navigation confidence across P&L, Balance Sheet, Cash Flow, and Notes through guided exploration.
+                        </p>
+                    </div>
+                    <div class="card-features">
+                        <div class="feature">
+                            <span class="feature-dot dot-purple"></span>
+                            Quiz format with 16 questions
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-pink"></span>
+                            Scoring: +1 per correct answer
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-yellow"></span>
+                            Duration: 20 minutes
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-green"></span>
+                            Covers P&L, B/S, Cash Flow & Notes
+                        </div>
+                    </div>
+                    <a href="activity.html" class="card-button btn-purple">
+                        Start Activity 2
+                    </a>
+                </div>
+
+                <!-- Activity 3 -->
+                <div class="activity-card card-green">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span>🏦</span>
+                        </div>
+                        <h3 class="card-title">Mystery Bank Case</h3>
+                        <p class="card-description">
+                            Read a snapshot, spot signals, compute ratios, and write a crisp analyst note for comprehensive analysis.
+                        </p>
+                    </div>
+                    <div class="card-features">
+                        <div class="feature">
+                            <span class="feature-dot dot-green"></span>
+                            1-page financial snapshot (2 years)
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-teal"></span>
+                            Select Best 3 positives & 3 red flags
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-yellow"></span>
+                            Compute 3 key ratios: CTI, ROA, Coverage
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-red"></span>
+                            Scoring: +1 per signal, +1 per ratio
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-blue"></span>
+                            Duration: 20 minutes
+                        </div>
+                    </div>
+                    <a href="activity3.html" class="card-button btn-green">
+                        Start Activity 3
+                    </a>
+                </div>
+
+                <!-- Activity 4 -->
+                <div class="activity-card card-orange">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span>🏢</span>
+                        </div>
+                        <h3 class="card-title">Branch Budget Lab</h3>
+                        <p class="card-description">
+                            Draft a mini operating budget, tag CapEx vs OpEx, and state key assumptions for strategic planning.
+                        </p>
+                    </div>
+                    <div class="card-features">
+                        <div class="feature">
+                            <span class="feature-dot dot-yellow"></span>
+                            Budget drafting exercise
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-orange"></span>
+                            CapEx vs OpEx classification
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-green"></span>
+                            Clear assumptions required
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-blue"></span>
+                            Duration: 35 minutes
+                        </div>
+                    </div>
+                    <a href="activity4.html" class="card-button btn-orange">
+                        Start Activity 4
+                    </a>
+                </div>
+
+                <!-- Activity 5 -->
+                <div class="activity-card card-indigo">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span>📝</span>
+                        </div>
+                        <h3 class="card-title">Mini-Quiz</h3>
+                        <p class="card-description">
+                            10 rapid-fire MCQs to test knowledge across financial statements and concepts with instant feedback.
+                        </p>
+                    </div>
+                    <div class="card-features">
+                        <div class="feature">
+                            <span class="feature-dot dot-indigo"></span>
+                            10 multiple-choice questions
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-purple"></span>
+                            30 seconds per question
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-green"></span>
+                            Teams respond with A/B/C/D cards
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot dot-yellow"></span>
+                            Duration: 10 minutes
+                        </div>
+                    </div>
+                    <a href="Activity2.html" class="card-button btn-indigo">
+                        Start Activity 5
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title text-center">Help Yourself Conquer The Future</h2>
+            <div class="about-features">
+                <!-- Feature 1 -->
+                <div class="feature-box">
+                    <div class="feature-icon">✔️</div>
+                    <h3 class="feature-heading">Control Your Learning Pattern</h3>
+                    <p>Our self-paced online learning helps you choose when, where and how you learn the skills you're eager to develop with maximum flexibility.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-box">
+                    <div class="feature-icon">✔️</div>
+                    <h3 class="feature-heading">Learn from the Experts!</h3>
+                    <p>Our Trainers and Consultants are among the best in their fields with proven records of excellence and industry recognition.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-box">
+                    <div class="feature-icon">✔️</div>
+                    <h3 class="feature-heading">Get Certified</h3>
+                    <p>Our course completion certificates are based on critical assessment criteria that enhance their credibility and professional value.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-offices">
+                <!-- UAE Office -->
+                <div class="office">
+                    <h3 class="office-title">UAE Office</h3>
+                    <p>Smart Links Business Management Services,</p>
+                    <p>Office: P3, Empire Heights, Business Bay, Dubai</p>
+                    <p>P.O. Box: 251428</p>
+                    <p>+971 5 0565 3520</p>
+                    <p><a href="mailto:contact@ed-watch.org">contact@ed-watch.org</a></p>
+                </div>
+
+                <!-- Pakistan Office -->
+                <div class="office">
+                    <h3 class="office-title">Pakistan Office</h3>
+                    <p>Ed-Watch (Pvt.) Limited, Office No. 106, 1st Floor,</p>
+                    <p>Silver Trade Tower, Gulshan-e-Iqbal block 13A, Karachi.</p>
+                    <p>021-34831184</p>
+                    <p><a href="mailto:contact@ed-watch.org">contact@ed-watch.org</a></p>
+                </div>
+
+                <!-- USA Office -->
+                <div class="office">
+                    <h3 class="office-title">USA Office</h3>
+                    <p>Ed Watch LLC, 20 Hallo Street, Edison,</p>
+                    <p>New Jersey 08837, USA</p>
+                    <p>+1 (903) 424-6912</p>
+                    <p><a href="mailto:contact@ed-watch.org">contact@ed-watch.org</a></p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 EdWatch. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced Mobile Navigation
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        const navbar = document.getElementById('navbar');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            });
+        });
+
+        // Enhanced Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Enhanced Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all activity cards and feature boxes
+        document.querySelectorAll('.activity-card, .feature-box').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Enhanced card hover effects
+        document.querySelectorAll('.activity-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-12px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Performance optimization: Reduce animations on mobile
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            document.querySelectorAll('.particle').forEach(particle => {
+                particle.style.display = 'none';
+            });
+        }
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.5s ease';
+        });
+
+        // Initialize page
+        document.body.style.opacity = '0';
+    </script>
+</body>
+</html>

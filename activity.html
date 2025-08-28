@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Activity No.2: Scavenger Hunt</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Animated background with floating particles */
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 15s infinite linear;
+    }
+
+    .particle:nth-child(1) { left: 10%; width: 20px; height: 20px; animation-delay: 0s; }
+    .particle:nth-child(2) { left: 20%; width: 30px; height: 30px; animation-delay: 2s; }
+    .particle:nth-child(3) { left: 30%; width: 15px; height: 15px; animation-delay: 4s; }
+    .particle:nth-child(4) { left: 40%; width: 25px; height: 25px; animation-delay: 6s; }
+    .particle:nth-child(5) { left: 50%; width: 18px; height: 18px; animation-delay: 8s; }
+    .particle:nth-child(6) { left: 60%; width: 22px; height: 22px; animation-delay: 10s; }
+    .particle:nth-child(7) { left: 70%; width: 35px; height: 35px; animation-delay: 12s; }
+    .particle:nth-child(8) { left: 80%; width: 28px; height: 28px; animation-delay: 14s; }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotateZ(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotateZ(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Glassmorphism effect */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .glass-card-dark {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Custom button effects */
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    }
+
+    /* Timer enhancement */
+    .timer-display {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+      color: white;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+
+    /* Professional typography */
+    .heading-gradient {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Smooth transitions */
+    .section-transition {
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+</head>
+<body class="text-gray-800 font-sans min-h-screen relative">
+
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <!-- Start Page -->
+  <section id="startPage" class="h-screen flex flex-col items-center justify-center text-center px-6 section-transition">
+    <div class="glass-card-dark rounded-3xl p-12 max-w-4xl w-full">
+      <div class="mb-8">
+        <h1 class="text-6xl font-black mb-4 heading-gradient">Activity No.2</h1>
+        <h2 class="text-3xl font-bold mb-6 text-gray-700">Financial Scavenger Hunt</h2>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
+        <div class="glass-card rounded-2xl p-6">
+          <div class="text-4xl mb-3">🎯</div>
+          <h3 class="text-xl font-bold text-gray-700 mb-2">Objective</h3>
+          <p class="text-gray-600">Build navigation confidence across P&L, Balance Sheet, Cash Flow, and Notes</p>
+        </div>
+        <div class="glass-card rounded-2xl p-6">
+          <div class="text-4xl mb-3">📊</div>
+          <h3 class="text-xl font-bold text-gray-700 mb-2">Scoring</h3>
+          <p class="text-gray-600">+1 per correct answer<br>+2 bonus for detailed explanations</p>
+        </div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-6 mb-8 text-left">
+        <h3 class="text-2xl font-bold heading-gradient mb-4 text-center">Assessment Rules</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <h4 class="font-bold text-gray-700 mb-2">📖 Phase 1: Study Period</h4>
+            <ul class="list-disc text-gray-600 ml-5 space-y-1">
+              <li>20-minute reading timer</li>
+              <li>Comprehensive PDF material</li>
+              <li>Early progression allowed</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-bold text-gray-700 mb-2">📝 Phase 2: Assessment</h4>
+            <ul class="list-disc text-gray-600 ml-5 space-y-1">
+              <li>10-minute quiz timer</li>
+              <li>Submit before time expires</li>
+              <li>Immediate score feedback</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="startReading()" class="btn-primary text-white px-12 py-4 rounded-2xl text-xl font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
+        🚀 Begin Assessment
+      </button>
+    </div>
+  </section>
+
+  <!-- Reading Phase -->
+  <section id="readingPage" class="hidden min-h-screen flex items-center justify-center px-6 section-transition">
+    <div class="glass-card-dark rounded-3xl p-10 max-w-4xl w-full">
+      <div class="text-center mb-8">
+        <h2 class="text-4xl font-black heading-gradient mb-4">Study Phase</h2>
+        <p class="text-xl text-gray-600 mb-6">Review the comprehensive financial documentation before proceeding to the assessment</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <a href="assests/monzo-annual-report-2024.pdf" target="_blank" 
+          class="group glass-card rounded-2xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-center block">
+          <div class="text-5xl mb-4 group-hover:animate-bounce">📄</div>
+          <h3 class="text-xl font-bold text-gray-700 mb-2">Access Document</h3>
+          <p class="text-gray-600">Open financial report in new tab</p>
+        </a>
+        
+        <button onclick="startQuiz()" class="group glass-card rounded-2xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+          <div class="text-5xl mb-4 group-hover:animate-pulse">➡️</div>
+          <h3 class="text-xl font-bold text-gray-700 mb-2">Continue to Quiz</h3>
+          <p class="text-gray-600">Proceed when ready</p>
+        </button>
+      </div>
+
+      <div class="timer-display text-2xl font-bold px-8 py-4 rounded-2xl text-center shadow-lg">
+        ⏳ Time Remaining: <span id="readingTimer">20:00</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz Phase -->
+  <section id="quizPage" class="hidden min-h-screen py-10 px-6 section-transition">
+    <div class="glass-card-dark rounded-3xl p-10 max-w-5xl mx-auto">
+      <div class="text-center mb-8">
+        <h2 class="text-4xl font-black heading-gradient mb-4">Financial Assessment</h2>
+        <div class="timer-display text-2xl font-bold px-8 py-4 rounded-2xl inline-block shadow-lg">
+          ⏳ Time Remaining: <span id="quizTimer">10:00</span>
+        </div>
+      </div>
+
+      <form id="quizForm" class="space-y-6 max-h-[60vh] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+        <!-- Questions dynamically loaded -->
+      </form>
+      
+      <div class="text-center mt-8 pt-6 border-t border-gray-200">
+        <button type="button" onclick="submitQuiz()" class="btn-success text-white px-12 py-4 rounded-2xl text-xl font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
+          ✅ Submit Assessment
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Result Page -->
+  <section id="resultPage" class="hidden h-screen flex flex-col items-center justify-center px-6 section-transition">
+    <div class="glass-card-dark rounded-3xl p-12 max-w-4xl w-full text-center">
+      <div class="mb-8">
+        <div class="text-8xl mb-6">🎉</div>
+        <h2 class="text-5xl font-black heading-gradient mb-6">Assessment Complete</h2>
+      </div>
+      
+      <div class="glass-card rounded-2xl p-8 mb-8">
+        <p id="finalResult" class="text-3xl font-bold text-gray-700 mb-4"></p>
+        <p class="text-lg text-gray-600">Your performance has been recorded for evaluation</p>
+      </div>
+      
+      <button onclick="window.location.href='index.html'" class="btn-primary text-white px-10 py-4 rounded-2xl text-xl font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
+        ← Return to Dashboard
+      </button>
+    </div>
+  </section>
+
+<script>
+  // ===================== Timers =====================
+  let readingTimer = 20 * 60; // 20 min
+  let quizTimer = 10 * 60;    // 10 min
+  let readingInterval, quizInterval;
+
+  function startReading() {
+    document.getElementById("startPage").classList.add("hidden");
+    document.getElementById("readingPage").classList.remove("hidden");
+
+    readingInterval = setInterval(() => {
+      if (readingTimer <= 0) {
+        clearInterval(readingInterval);
+        startQuiz();
+      } else {
+        readingTimer--;
+        document.getElementById("readingTimer").innerText = formatTime(readingTimer);
+      }
+    }, 1000);
+  }
+
+  function startQuiz() {
+    clearInterval(readingInterval);
+    document.getElementById("readingPage").classList.add("hidden");
+    document.getElementById("quizPage").classList.remove("hidden");
+
+    loadQuestions();
+
+    quizInterval = setInterval(() => {
+      if (quizTimer <= 0) {
+        clearInterval(quizInterval);
+        submitQuiz();
+      } else {
+        quizTimer--;
+        document.getElementById("quizTimer").innerText = formatTime(quizTimer);
+      }
+    }, 1000);
+  }
+
+  function formatTime(sec) {
+    let m = Math.floor(sec / 60);
+    let s = sec % 60;
+    return `${m}:${s < 10 ? "0" + s : s}`;
+  }
+
+  // ===================== Quiz Questions =====================
+  const questions = [
+    {q: "Which factors primarily drove the increase in revenue in FY2024?", options: ["Lower balances at central banks and falling base rates","Growth in fee income only","Higher average balances, treasury investments maturing and being reinvested at higher base rates","Foreign exchange trading gains"], correct: 2},
+    {q: "What was Profit before tax for the period?", options: ["£(116.3)m","£9.4m","£15.4m","£55.0m"], correct: 2},
+    {q: "What was Net operating income in FY2024?", options: ["£214.5m","£437.9m","£514.4m","£880.0m"], correct: 2},
+    {q: "What was Net interest income in FY2024?", options: ["£255.5m","£438.0m","£575.9m","£164.2m"], correct: 1},
+    {q: "What were total assets at 31 March 2024?", options: ["£6.7bn","£12.97bn","£11.20bn","£3.63bn"], correct: 1},
+    {q: "Customer deposits at 31 March 2024 were closest to:", options: ["£5.95bn","£9.70bn","£11.20bn","£12.97bn"], correct: 2},
+    {q: "Net cash from operating activities for FY2024 was:", options: ["£1.01bn","£(0.83)bn","£5.02bn","£0.33bn"], correct: 2},
+    {q: "Which derivatives were designated as cash flow hedges at year-end, and what was their notional amount?", options: ["FX forwards; £500m","Interest rate swaps; £1.1bn","Equity options; £1.5bn","Credit default swaps; £2.0bn"], correct: 1},
+    {q: "What was the Group's CET1 ratio as at 31 March 2024 (unaudited)?", options: ["48%","55%","58%","8%"], correct: 1},
+    {q: "What audit opinion did the independent auditor issue on the Group financial statements?", options: ["Qualified opinion","Adverse opinion","Disclaimer of opinion","Unmodified/true and fair view"], correct: 3},
+    {q: "Select Top 2 revenue drivers in the period.", options: ["Paper and transportation costs","High administrative costs and Customer contracts","Customers contracts and inflationary impacts","Paper costs and customer contracts"], correct: 2},
+    {q: "What is the Provision charge?", options: ["62,000","15,000","16,000","16 million"], correct: 0},
+    {q: "Depreciation method.", options: ["Straight line basis over 50 years","Reducing balance method over 25 years","Written down value method over 25 & 50 years","Straight line basis over estimated useful life"], correct: 3},
+    {q: "What is the tax impact on the financials?", options: ["zero income tax expense as a result of group tax relief obtained","zero income tax expense and income tax credit arising from group tax relief obtained","zero income tax due to the difference between the actual tax charge and the standard rate of corporation tax in UK","tax expense of 713,000"], correct: 1},
+    {q: "The opinion of Auditors' report is:", options: ["Unmodified","Qualified","Adverse"], correct: 0},
+    {q: "Major Risks flagged in the report are:", options: ["Energy price risk","Paper price risk","Customer partnerships","Inflationary risks affecting paper and energy"], correct: 3}
+  ];
+
+  function loadQuestions() {
+    const form = document.getElementById("quizForm");
+    form.innerHTML = "";
+    questions.forEach((item, idx) => {
+      const div = document.createElement("div");
+      div.className = "glass-card rounded-2xl p-6 hover:shadow-lg transition-all duration-300";
+      div.innerHTML = `<p class="font-bold mb-4 text-gray-800 text-lg">Question ${idx+1}: ${item.q}</p>`;
+      item.options.forEach((opt, i) => {
+        div.innerHTML += `<label class="flex items-center mb-3 p-2 rounded-lg hover:bg-white hover:bg-opacity-50 transition-all cursor-pointer">
+          <input type="radio" name="q${idx}" value="${i}" class="mr-3 w-4 h-4 text-indigo-600 focus:ring-indigo-500"> 
+          <span class="text-gray-700">${opt}</span>
+        </label>`;
+      });
+      form.appendChild(div);
+    });
+  }
+
+  function submitQuiz() {
+    clearInterval(quizInterval);
+    let score = 0;
+    questions.forEach((item, idx) => {
+      let selected = document.querySelector(`input[name="q${idx}"]:checked`);
+      if (selected && parseInt(selected.value) === item.correct) {
+        score++;
+      }
+    });
+
+    document.getElementById("quizPage").classList.add("hidden");
+    document.getElementById("resultPage").classList.remove("hidden");
+    
+    const percentage = Math.round((score / questions.length) * 100);
+    let resultText = `Final Score: ${score} / ${questions.length} (${percentage}%)`;
+    
+    if (percentage >= 80) {
+      resultText += "\n🌟 Excellent Performance!";
+    } else if (percentage >= 70) {
+      resultText += "\n👍 Good Work!";
+    } else if (percentage >= 60) {
+      resultText += "\n📈 Room for Improvement";
+    } else {
+      resultText += "\n📚 Consider Additional Study";
+    }
+    
+    document.getElementById("finalResult").innerText = resultText;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Activity 3: Mystery Bank Case Burst</title>
+  <style>
+    /* Reset & Base */
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #1f2937;
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated Background */
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #1e40af 50%, #1d4ed8 75%, #2563eb 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+    }
+
+    .floating-shapes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .shape {
+      position: absolute;
+      opacity: 0.1;
+      animation: float 20s infinite linear;
+    }
+
+    .shape:nth-child(1) { 
+      left: 10%; 
+      width: 80px; 
+      height: 80px; 
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      animation-delay: 0s; 
+    }
+    .shape:nth-child(2) { 
+      left: 20%; 
+      width: 60px; 
+      height: 60px; 
+      background: rgba(255,255,255,0.15);
+      transform: rotate(45deg);
+      animation-delay: 4s; 
+    }
+    .shape:nth-child(3) { 
+      left: 70%; 
+      width: 100px; 
+      height: 100px; 
+      background: rgba(255,255,255,0.1);
+      border-radius: 30%;
+      animation-delay: 8s; 
+    }
+    .shape:nth-child(4) { 
+      left: 80%; 
+      width: 40px; 
+      height: 40px; 
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      animation-delay: 12s; 
+    }
+    .shape:nth-child(5) { 
+      left: 50%; 
+      width: 120px; 
+      height: 120px; 
+      background: rgba(255,255,255,0.08);
+      border-radius: 20%;
+      animation-delay: 16s; 
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.1;
+      }
+      90% {
+        opacity: 0.1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Glass Card Effects */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 35px 70px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    /* Typography */
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 30px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    h2 { 
+      margin-bottom: 20px; 
+      color: #1e40af;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+
+    h3 {
+      color: #059669;
+      font-weight: 600;
+      font-size: 1.4rem;
+    }
+
+    h4 {
+      margin-top: 20px;
+      color: #1e40af;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    p { 
+      margin-bottom: 15px; 
+      color: #4b5563;
+      font-size: 1.05rem;
+    }
+
+    /* Card Boxes */
+    .box {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 30px;
+      margin: 30px 0;
+      border-radius: 20px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #1e3a8a, #3730a3, #1e40af);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 35px 70px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Enhanced Buttons */
+    button {
+      background: linear-gradient(135deg, #1e40af, #3730a3);
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    button:hover::before {
+      left: 100%;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(30, 64, 175, 0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    /* Enhanced Form Elements */
+    textarea, input[type="text"], input[type="number"] {
+      width: 100%;
+      margin: 10px 0;
+      padding: 14px;
+      border-radius: 12px;
+      border: 2px solid rgba(30, 64, 175, 0.2);
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+    }
+
+    textarea:focus, input[type="text"]:focus, input[type="number"]:focus {
+      outline: none;
+      border-color: #3730a3;
+      box-shadow: 0 0 0 4px rgba(55, 48, 163, 0.1);
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      margin: 12px 0;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    label:hover {
+      background: rgba(30, 64, 175, 0.05);
+      transform: translateX(5px);
+    }
+
+    input[type="checkbox"], input[type="radio"] {
+      margin-right: 12px;
+      transform: scale(1.3);
+      accent-color: #3730a3;
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin: 25px 0 20px 0;
+      color: #1e40af;
+      padding: 15px 20px;
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.1), rgba(55, 48, 163, 0.05));
+      border-radius: 12px;
+      border-left: 4px solid #3730a3;
+    }
+
+    /* Enhanced Timer */
+    #timer {
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      color: white;
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 15px 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(220, 38, 38, 0.3);
+      animation: timerPulse 2s infinite;
+      position: sticky;
+      top: 20px;
+      z-index: 10;
+    }
+
+    @keyframes timerPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+
+    /* Enhanced Preformatted Text */
+    pre {
+      background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+      padding: 25px;
+      border-radius: 15px;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+      border: 2px solid rgba(30, 64, 175, 0.1);
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+      color: #1e293b;
+      line-height: 1.6;
+    }
+
+    /* Result Enhancements */
+    #result {
+      background: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(16, 185, 129, 0.05));
+      padding: 25px;
+      border-radius: 15px;
+      border: 2px solid rgba(5, 150, 105, 0.2);
+    }
+
+    #result h3 {
+      color: #059669;
+      margin-bottom: 15px;
+      font-size: 1.6rem;
+    }
+
+    #result h4 {
+      margin-top: 20px;
+      color: #1e40af;
+      font-size: 1.3rem;
+    }
+
+    #result p {
+      margin-bottom: 12px;
+      color: #4b5563;
+    }
+
+    /* Intro Page Enhancements */
+    .intro-content {
+      text-align: center;
+      padding: 40px;
+    }
+
+    .intro-content ul {
+      text-align: left;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+
+    .intro-content li {
+      margin: 10px 0;
+      padding: 8px 0;
+      color: #4b5563;
+      font-size: 1.05rem;
+    }
+
+    /* Question Groups */
+    .question-group {
+      background: rgba(30, 64, 175, 0.02);
+      border: 2px solid rgba(30, 64, 175, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .question-group p {
+      font-weight: 600;
+      color: #1e40af;
+      margin-bottom: 15px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      body { padding: 10px; }
+      h1 { font-size: 2.2rem; }
+      .box { padding: 20px; margin: 20px 0; }
+      button { width: 100%; padding: 14px; }
+      pre { font-size: 12px; padding: 15px; }
+      .container { padding: 10px; }
+      #timer { font-size: 1.2rem; padding: 12px 20px; }
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(30, 64, 175, 0.3);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(30, 64, 175, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="floating-shapes">
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Activity 3</h1>
+
+    <!-- Intro Page -->
+    <div id="intro" class="box">
+      <div class="intro-content">
+        <h2>Mystery Bank Case Burst</h2>
+        <div style="font-size: 1.2rem; color: #6b7280; margin: 20px 0;">⏱️ Duration: 20 Minutes</div>
+        
+        <div style="background: linear-gradient(135deg, rgba(30, 64, 175, 0.1), rgba(55, 48, 163, 0.05)); padding: 25px; border-radius: 15px; margin: 30px 0;">
+          <p style="font-size: 1.1rem; margin-bottom: 20px;"><strong>🎯 Objective:</strong> Analyze a comprehensive financial snapshot, identify key performance indicators, compute essential ratios, and demonstrate analytical proficiency.</p>
+          
+          <div style="text-align: left; max-width: 700px; margin: 0 auto;">
+            <p style="font-weight: 600; color: #1e40af; margin-bottom: 15px;">📋 Assessment Components:</p>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin: 12px 0; padding: 10px; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                <strong>Part A:</strong> Identify 3 positive signals and 3 red flags from financial data
+              </li>
+              <li style="margin: 12px 0; padding: 10px; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                <strong>Part B:</strong> Calculate key financial ratios for comparative analysis
+              </li>
+            </ul>
+          </div>
+
+          <div style="background: rgba(220, 38, 38, 0.1); border: 2px solid rgba(220, 38, 38, 0.2); padding: 20px; border-radius: 12px; margin-top: 25px;">
+            <p style="font-weight: 600; color: #dc2626; margin-bottom: 10px;">📊 Scoring Framework:</p>
+            <p style="color: #7f1d1d;">• Signal Identification: +1 point per accurate selection (Maximum: 6 points)</p>
+            <p style="color: #7f1d1d;">• Ratio Calculations: +1 point per correct computation (Maximum: 3 points)</p>
+            <p style="color: #7f1d1d; font-weight: 600;">Total Possible Score: 9 points</p>
+          </div>
+        </div>
+        
+        <button onclick="startActivity()" style="font-size: 1.2rem; padding: 20px 40px; margin-top: 30px;">
+          🚀 Begin Financial Analysis
+        </button>
+      </div>
+    </div>
+
+    <!-- Activity Page -->
+    <div id="activity" style="display:none;">
+      <div id="timer">⏳ Time Remaining: 40:00</div>
+
+      <!-- Handout -->
+      <div class="box">
+        <h2>📊 Financial Data Sheet</h2>
+        <div style="background: linear-gradient(135deg, rgba(30, 64, 175, 0.05), rgba(55, 48, 163, 0.02)); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+          <p style="font-weight: 600; color: #1e40af; text-align: center; margin-bottom: 15px;">Amounts in PKR Million</p>
+        </div>
+        <pre>
+<strong>BALANCE SHEET METRICS</strong>
+─────────────────────────────────
+Avg Assets:           Y1: 475,000  │  Y2: 537,500
+Avg Equity:           Y1:  36,000  │  Y2:  43,500
+Deposits:             Y1: 360,000  │  Y2: 420,000
+  └─ CASA Ratio:      Y1:     52%  │  Y2:     48%
+Gross Loans:          Y1: 320,000  │  Y2: 370,000
+
+<strong>INCOME STATEMENT</strong>
+─────────────────────────────────
+Net Interest Income:  Y1:  13,000  │  Y2:  16,500
+Non-Interest Income:  Y1:   3,200  │  Y2:   3,800
+Operating Expenses:   Y1:   9,200  │  Y2:  11,800
+Provisions:           Y1:   1,800  │  Y2:   2,600
+Net Income:           Y1:   4,500  │  Y2:   5,200
+
+<strong>ASSET QUALITY</strong>
+─────────────────────────────────
+NPL Ratio:            Y1:    6.0%  │  Y2:    6.8%
+Coverage Ratio:       Y1:     78%  │  Y2:     74%
+        </pre>
+      </div>
+
+      <!-- Part A -->
+      <div class="box">
+        <p class="section-title">Part A: Strategic Signal Analysis</p>
+        
+        <div style="background: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(16, 185, 129, 0.05)); padding: 20px; border-radius: 15px; margin: 20px 0; border: 2px solid rgba(5, 150, 105, 0.2);">
+          <strong style="color: #059669; font-size: 1.2rem;">✅ Positive Performance Indicators (Select 3):</strong>
+        </div>
+        
+        <div class="question-group">
+          <label><input type="checkbox" name="positives" value="casa"> <strong>CASA Optimization Strategy:</strong> Rebuild CASA through salary-account bundles, merchant QR/payroll tie-ups, and digital onboarding drives in high-traffic branches.</label>
+          <label><input type="checkbox" name="positives" value="momentum"> <strong>Revenue Growth Momentum:</strong> NII up ~27% (13,000→16,500) and non-interest income up ~19% (3,200→3,800). NIM proxy improved ~2.74% → ~3.07%.</label>
+          <label><input type="checkbox" name="positives" value="liquidity"> <strong>Balanced Growth Profile:</strong> Deposits +16.7% and loans +15.6%; LDR ~88–89%, demonstrating funding stability.</label>
+          <label><input type="checkbox" name="positives" value="profit"> <strong>Profitability Enhancement:</strong> Net income +15.6%; ROAA ~0.95% → ~0.97%.</label>
+          <label><input type="checkbox" name="positives" value="fees"> <strong>Fee Income Diversification:</strong> Lift fees without balance-sheet risk through cross-sell payments/FX and tiered cash-management packages.</label>
+          <label><input type="checkbox" name="positives" value="repricing"> <strong>Strategic Repricing Initiative:</strong> Data-led repricing of lower-CASA and term funding hedges.</label>
+          <label><input type="checkbox" name="positives" value="provisioning"> <strong>Proactive Risk Management:</strong> Provisioning coverage guardrail with proactive Stage-2/3 top-ups and monthly ECL sensitivity monitoring.</label>
+        </div>
+
+        <div style="background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(239, 68, 68, 0.05)); padding: 20px; border-radius: 15px; margin: 20px 0; border: 2px solid rgba(220, 38, 38, 0.2);">
+          <strong style="color: #dc2626; font-size: 1.2rem;">🚩 Risk Factors & Concerns (Select 3):</strong>
+        </div>
+        
+        <div class="question-group">
+          <label><input type="checkbox" name="redflags" value="credit"> <strong>Credit Risk Tightening:</strong> Recalibrate scorecards/limits on riskier buckets, step-up collections, add cures and vintage monitoring.</label>
+          <label><input type="checkbox" name="redflags" value="assetquality"> <strong>Asset Quality Deterioration:</strong> NPL 6.0% → 6.8% and coverage 78% → 74%; credit cost up 0.56% → 0.70%.</label>
+          <label><input type="checkbox" name="redflags" value="funding"> <strong>Funding Mix Pressure:</strong> CASA ratio declined 52% → 48%, implying higher cost of funds.</label>
+          <label><input type="checkbox" name="redflags" value="efficiency"> <strong>Operational Efficiency Decline:</strong> Cost-to-income 56.8% → 58.2%; OPEX growth (28%) outpacing revenue (25%).</label>
+          <label><input type="checkbox" name="redflags" value="roe"> <strong>Return Metrics Softening:</strong> ROE declined 12.5% → 12.0% due to higher equity base.</label>
+          <label><input type="checkbox" name="redflags" value="costs"> <strong>Cost Management Imperative:</strong> Need for 90-day ZBB, automation, and unit-cost KPIs.</label>
+        </div>
+      </div>
+
+      <!-- Part B -->
+      <div class="box">
+        <p class="section-title">Part B: Financial Ratio Computation</p>
+        
+        <div class="question-group">
+          <p><strong>1. Cost-to-Income Ratio (Y1 & Y2):</strong></p>
+          <label><input type="radio" name="cti" value="Y1=56.8% | Y2=58.1%"> Y1 = 56.8% | Y2 = 58.1%</label>
+          <label><input type="radio" name="cti" value="Y1=26.9% | Y2=28.3%"> Y1 = 26.9% | Y2 = 28.3%</label>
+          <label><input type="radio" name="cti" value="Y1=36.8% | Y2=53.1%"> Y1 = 36.8% | Y2 = 53.1%</label>
+          <label><input type="radio" name="cti" value="Y1=41.8% | Y2=44.1%"> Y1 = 41.8% | Y2 = 44.1%</label>
+        </div>
+
+        <div class="question-group">
+          <p><strong>2. Return on Assets - ROA (Y1 & Y2):</strong></p>
+          <label><input type="radio" name="roa" value="Y1=1.25% | Y2=1.07%"> Y1 = 1.25% | Y2 = 1.07%</label>
+          <label><input type="radio" name="roa" value="Y1=0.25% | Y2=0.27%"> Y1 = 0.25% | Y2 = 0.27%</label>
+          <label><input type="radio" name="roa" value="Y1=2.15% | Y2=2.17%"> Y1 = 2.15% | Y2 = 2.17%</label>
+          <label><input type="radio" name="roa" value="Y1=0.95% | Y2=0.97%"> Y1 = 0.95% | Y2 = 0.97%</label>
+        </div>
+
+        <div class="question-group">
+          <p><strong>3. NPL Coverage Ratio (Y1 & Y2):</strong></p>
+          <label><input type="radio" name="coverage" value="Y1=71% | Y2=72%"> Y1 = 71% | Y2 = 72%</label>
+          <label><input type="radio" name="coverage" value="Y1=76.5% | Y2=73.3%"> Y1 = 76.5% | Y2 = 73.3%</label>
+          <label><input type="radio" name="coverage" value="Y1=78% | Y2=74%"> Y1 = 78% | Y2 = 74%</label>
+          <label><input type="radio" name="coverage" value="Y1=78% | Y2=78%"> Y1 = 78% | Y2 = 78%</label>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+          <button onclick="submitActivity()" style="font-size: 1.2rem; padding: 18px 36px;">
+            📤 Submit Analysis
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result Page -->
+    <div id="resultPage" style="display:none;">
+      <div class="box">
+        <h2>📊 Assessment Results</h2>
+        <div id="result"></div>
+        <div style="text-align: center; margin-top: 30px;">
+          <button onclick="window.location.href='index.html'" style="font-size: 1.1rem; padding: 16px 32px;">
+            ← Return to Dashboard
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let timerInterval;
+    let timeLeft = 2400; // 40 minutes in seconds
+
+    function startActivity(){
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("activity").style.display = "block";
+      startTimer();
+    }
+
+    function startTimer(){
+      const timerEl = document.getElementById("timer");
+      timerInterval = setInterval(()=>{
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        timerEl.textContent = `⏳ Time Remaining: ${minutes}:${seconds < 10 ? '0'+seconds : seconds}`;
+        timeLeft--;
+        if(timeLeft < 0){
+          clearInterval(timerInterval);
+          alert("⏰ Time's up! Automatically submitting your assessment.");
+          submitActivity();
+        }
+      },1000);
+    }
+
+    function submitActivity(){
+      clearInterval(timerInterval);
+      let score = 0;
+
+      // === PART A: Signals ===
+      const positives = Array.from(document.querySelectorAll('input[name="positives"]:checked')).map(el=>el.value);
+      const redflags = Array.from(document.querySelectorAll('input[name="redflags"]:checked')).map(el=>el.value);
+
+      const correctPositives = ["momentum", "liquidity", "profit"];
+      const correctRedflags = ["assetquality", "funding", "efficiency"];
+
+      let signalScore = 0;
+      positives.forEach(p => { if(correctPositives.includes(p)) signalScore++; });
+      redflags.forEach(r => { if(correctRedflags.includes(r)) signalScore++; });
+      if(signalScore > 6) signalScore = 6; // cap signals score
+
+      // === PART B: Ratios ===
+      const correctRatios = {
+        cti: "Y1=56.8% | Y2=58.1%",
+        roa: "Y1=0.95% | Y2=0.97%",
+        coverage: "Y1=78% | Y2=74%"
+      };
+
+      let ratioScore = 0;
+      for(let id in correctRatios){
+        const selected = document.querySelector(`input[name="${id}"]:checked`);
+        if(selected && selected.value === correctRatios[id]) ratioScore++;
+      }
+
+      score = signalScore + ratioScore;
+
+      // === Show results page ===
+      document.getElementById("activity").style.display = "none";
+      const resultEl = document.getElementById("result");
+      document.getElementById("resultPage").style.display = "block";
+
+      // Performance evaluation
+      let performanceLevel = "";
+      let performanceColor = "";
+      let performanceIcon = "";
+      
+      if (score >= 8) {
+        performanceLevel = "Outstanding Performance";
+        performanceColor = "#059669";
+        performanceIcon = "🌟";
+      } else if (score >= 6) {
+        performanceLevel = "Strong Performance";
+        performanceColor = "#0891b2";
+        performanceIcon = "🎯";
+      } else if (score >= 4) {
+        performanceLevel = "Satisfactory Performance";
+        performanceColor = "#ca8a04";
+        performanceIcon = "📈";
+      } else {
+        performanceLevel = "Needs Improvement";
+        performanceColor = "#dc2626";
+        performanceIcon = "📚";
+      }
+
+      resultEl.innerHTML = `
+        <div style="text-align: center; margin-bottom: 30px;">
+          <div style="font-size: 4rem; margin-bottom: 15px;">${performanceIcon}</div>
+          <h3 style="color: ${performanceColor}; font-size: 2rem; margin-bottom: 10px;">Final Score: ${score} / 9</h3>
+          <p style="font-size: 1.3rem; font-weight: 600; color: ${performanceColor};">${performanceLevel}</p>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, rgba(30, 64, 175, 0.1), rgba(55, 48, 163, 0.05)); padding: 25px; border-radius: 15px; margin: 25px 0;">
+          <h4 style="color: #1e40af; margin-bottom: 15px;">📊 Performance Breakdown</h4>
+          <p style="margin-bottom: 8px;"><strong>Signal Analysis:</strong> ${signalScore} / 6 points</p>
+          <p style="margin-bottom: 8px;"><strong>Ratio Calculations:</strong> ${ratioScore} / 3 points</p>
+        </div>
+
+        <div style="background: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(16, 185, 129, 0.05)); padding: 25px; border-radius: 15px; margin: 25px 0; border: 2px solid rgba(5, 150, 105, 0.2);">
+          <h4 style="color: #059669; margin-bottom: 15px;">✅ Model Answer - Key Insights</h4>
+          
+          <div style="margin-bottom: 20px;">
+            <p style="font-weight: 600; color: #1e40af; margin-bottom: 8px;">Positive Indicators:</p>
+            <p style="color: #4b5563; line-height: 1.6;">• <strong>Revenue Growth Momentum:</strong> Strong income growth with NII up 27% and non-interest income up 19%</p>
+            <p style="color: #4b5563; line-height: 1.6;">• <strong>Balanced Growth Profile:</strong> Synchronized growth in loans (15.6%) and deposits (16.7%) maintaining healthy LDR</p>
+            <p style="color: #4b5563; line-height: 1.6;">• <strong>Profitability Enhancement:</strong> ROA improvement from 0.95% to 0.97% with net income growth of 15.6%</p>
+          </div>
+
+          <div style="margin-bottom: 20px;">
+            <p style="font-weight: 600; color: #dc2626; margin-bottom: 8px;">Critical Risk Factors:</p>
+            <p style="color: #4b5563; line-height: 1.6;">• <strong>Asset Quality Deterioration:</strong> NPL ratio increased from 6.0% to 6.8% with coverage declining from 78% to 74%</p>
+            <p style="color: #4b5563; line-height: 1.6;">• <strong>Funding Mix Pressure:</strong> CASA ratio dropped from 52% to 48%, indicating higher funding costs</p>
+            <p style="color: #4b5563; line-height: 1.6;">• <strong>Operational Efficiency Decline:</strong> Cost-to-income ratio worsened from 56.8% to 58.2%</p>
+          </div>
+
+          <div style="background: rgba(255, 255, 255, 0.7); padding: 20px; border-radius: 12px; margin-top: 20px;">
+            <p style="font-weight: 600; color: #1e40af; margin-bottom: 8px;">Key Financial Ratios:</p>
+            <p style="color: #4b5563;">• <strong>Cost-to-Income:</strong> Y1 = 56.8% | Y2 = 58.1%</p>
+            <p style="color: #4b5563;">• <strong>Return on Assets:</strong> Y1 = 0.95% | Y2 = 0.97%</p>
+            <p style="color: #4b5563;">• <strong>NPL Coverage:</strong> Y1 = 78% | Y2 = 74%</p>
+          </div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(139, 69, 193, 0.05)); padding: 25px; border-radius: 15px; margin: 25px 0; border: 2px solid rgba(124, 58, 237, 0.2);">
+          <h4 style="color: #7c3aed; margin-bottom: 15px;">🎯 Strategic Recommendations</h4>
+          <p style="color: #4b5563; line-height: 1.6; margin-bottom: 12px;"><strong>Immediate Actions:</strong> Focus on CASA rebuilding initiatives and implement stricter credit controls to address asset quality concerns.</p>
+          <p style="color: #4b5563; line-height: 1.6; margin-bottom: 12px;"><strong>Medium-term Strategy:</strong> Enhance operational efficiency through cost optimization programs and digital transformation.</p>
+          <p style="color: #4b5563; line-height: 1.6;"><strong>Risk Management:</strong> Strengthen provisioning practices and implement comprehensive ECL monitoring frameworks.</p>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
