@@ -1,10 +1,350 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Trend & Common-Size Gallery Walk</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Activity 4: Branch Budget Lab</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Animated gradient background */
+    .animated-bg {
+      background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .particle:nth-child(1) { width: 4px; height: 4px; left: 20%; animation-delay: 0s; }
+    .particle:nth-child(2) { width: 6px; height: 6px; left: 80%; animation-delay: 1s; }
+    .particle:nth-child(3) { width: 3px; height: 3px; left: 40%; animation-delay: 2s; }
+    .particle:nth-child(4) { width: 5px; height: 5px; left: 70%; animation-delay: 3s; }
+    .particle:nth-child(5) { width: 4px; height: 4px; left: 10%; animation-delay: 4s; }
+    .particle:nth-child(6) { width: 3px; height: 3px; left: 90%; animation-delay: 5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); opacity: 0.3; }
+      50% { transform: translateY(-20px); opacity: 0.8; }
+    }
+
+    /* Glass morphism effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Button hover animations */
+    .btn-primary {
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-secondary {
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #f7fafc, #edf2f7);
+      border: 1px solid #e2e8f0;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(135deg, #edf2f7, #e2e8f0);
+    }
+
+    /* Timer glow effect */
+    .timer-glow {
+      text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+
+    /* Card hover effect */
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Checklist animations */
+    .checklist-item {
+      transition: all 0.2s ease;
+      padding: 8px;
+      border-radius: 6px;
+    }
+
+    .checklist-item:hover {
+      background: rgba(102, 126, 234, 0.1);
+      transform: translateX(5px);
+    }
+  </style>
 </head>
-<body class="bg-gray-100 p-6">
+<body class="animated-bg min-h-screen flex items-center justify-center p-2 sm:p-4 lg:p-6 relative overflow-hidden">
+  <!-- Floating particles -->
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+
+  <div class="max-w-7xl w-full h-[95vh] glass rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 lg:p-12 card-hover relative z-10 flex flex-col">
+    <header class="mb-8 text-center">
+      <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+         Activity 4:Branch Budget Lab
+      </h1>
+    </header>
+
+    <section class="grid gap-4 sm:gap-6 lg:gap-8 lg:grid-cols-2 items-start flex-1 overflow-auto">
+      <div class="space-y-6">
+        <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-6 border border-blue-200">
+          <h2 class="text-xl font-bold text-gray-800 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Objective
+          </h2>
+          <p class="mt-3 text-gray-700 leading-relaxed">
+            Draft a comprehensive mini operating budget, categorize expenditures as 
+            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-md font-semibold">CapEx</span> vs 
+            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-md font-semibold">OpEx</span>, 
+            and document your strategic assumptions.
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-50 to-pink-100 rounded-2xl p-6 border border-purple-200">
+          <h3 class="text-xl font-bold text-gray-800 flex items-center mb-4">
+            <svg class="w-5 h-5 mr-2 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/>
+            </svg>
+            Instructions
+          </h3>
+          <ol class="space-y-3 text-gray-700">
+            <li class="flex items-start">
+              <span class="flex-shrink-0 w-6 h-6 bg-indigo-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5">1</span>
+              <span>Click <strong class="text-indigo-600">Start Assessment</strong> to open the requirements spreadsheet (Google Sheet) in a new tab.</span>
+            </li>
+            <li class="flex items-start">
+              <span class="flex-shrink-0 w-6 h-6 bg-indigo-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5">2</span>
+              <span>The timer (<strong>35 minutes</strong>) will start automatically when you click Start — you will see the remaining time displayed prominently.</span>
+            </li>
+            <li class="flex items-start">
+              <span class="flex-shrink-0 w-6 h-6 bg-indigo-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5">3</span>
+              <span>Work in the Google Sheet: fill required fields, tag items as <em class="text-green-600 font-semibold">CapEx</em> or <em class="text-blue-600 font-semibold">OpEx</em>, and document assumptions.</span>
+            </li>
+            <li class="flex items-start">
+              <span class="flex-shrink-0 w-6 h-6 bg-indigo-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5">4</span>
+              <span>When finished, return here and click <strong class="text-gray-600">Finish</strong> (or close the sheet). Timer stops automatically at zero.</span>
+            </li>
+          </ol>
+        </div>
+
+        
+        <div class="flex gap-4 pt-4">
+          <button id="startBtn" class="flex-1 px-6 py-4 btn-primary text-white rounded-xl shadow-lg font-semibold text-lg relative">
+            <span class="relative z-10">🚀 Start Assessment</span>
+          </button>
+          <button id="finishBtn" class="px-6 py-4 btn-secondary text-gray-700 rounded-xl shadow-lg font-semibold text-lg">
+            ✅ Finish
+          </button>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center justify-center">
+        <!-- Timer Section -->
+        <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-8 text-center border border-indigo-100 shadow-inner mb-6 w-full">
+          <div class="flex items-center justify-center mb-3">
+            <svg class="w-6 h-6 text-indigo-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
+            </svg>
+            <p class="uppercase text-sm font-bold text-indigo-600">Time Allowed</p>
+          </div>
+          <div id="timeAllowed" class="text-6xl md:text-8xl font-black bg-gradient-to-br from-indigo-600 to-purple-600 bg-clip-text text-transparent timer-glow">
+            35:00
+          </div>
+          <p class="mt-4 text-gray-600 font-medium">
+            Timer starts when you click <span class="font-bold text-indigo-600">Start Assessment</span>
+          </p>
+          <div class="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div id="progressBar" class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-1000" style="width: 100%;"></div>
+          </div>
+        </div>
+
+        <!-- Enhanced Checklist -->
+        <div class="w-full bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-6 border border-gray-200">
+          <h4 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+            </svg>
+            Success Checklist
+          </h4>
+          <div class="space-y-2">
+            <div class="checklist-item rounded-lg">
+              <div class="flex items-center">
+                <div class="w-4 h-4 border-2 border-gray-300 rounded mr-3"></div>
+                <span class="text-gray-700">Draft comprehensive revenue and expense entries</span>
+              </div>
+            </div>
+            <div class="checklist-item rounded-lg">
+              <div class="flex items-center">
+                <div class="w-4 h-4 border-2 border-gray-300 rounded mr-3"></div>
+                <span class="text-gray-700">Categorize each line item as <strong class="text-green-600">CapEx</strong> or <strong class="text-blue-600">OpEx</strong></span>
+              </div>
+            </div>
+            <div class="checklist-item rounded-lg">
+              <div class="flex items-center">
+                <div class="w-4 h-4 border-2 border-gray-300 rounded mr-3"></div>
+                <span class="text-gray-700">Document strategic assumptions (100–200 words)</span>
+              </div>
+            </div>
+            <div class="checklist-item rounded-lg">
+              <div class="flex items-center">
+                <div class="w-4 h-4 border-2 border-gray-300 rounded mr-3"></div>
+                <span class="text-gray-700">Verify calculations and professional formatting</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mt-4 pt-4 border-t border-gray-200 text-center flex-shrink-0">
+      <div class="flex items-center justify-center text-gray-500">
+        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <span class="text-sm font-medium">Branch Budget Lab • 35 Minutes Assessment</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // === USER: replace this with your real Google Sheet URL ===
+    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/REPLACE_WITH_YOUR_SHEET_ID/edit';
+    // =======================================================
+
+    const startBtn = document.getElementById('startBtn');
+    const finishBtn = document.getElementById('finishBtn');
+    const timeAllowedEl = document.getElementById('timeAllowed');
+    const progressBar = document.getElementById('progressBar');
+
+    let totalSeconds = 35 * 60; // 35 minutes
+    let remaining = totalSeconds;
+    let timerInterval = null;
+    let started = false;
+
+    function formatTime(s) {
+      const mm = Math.floor(s / 60).toString().padStart(2, '0');
+      const ss = (s % 60).toString().padStart(2, '0');
+      return `${mm}:${ss}`;
+    }
+
+    function updateProgress() {
+      const progress = (remaining / totalSeconds) * 100;
+      progressBar.style.width = `${progress}%`;
+      
+      // Change color as time runs out
+      if (progress > 50) {
+        progressBar.className = 'h-full bg-gradient-to-r from-green-500 to-blue-500 rounded-full transition-all duration-1000';
+      } else if (progress > 25) {
+        progressBar.className = 'h-full bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full transition-all duration-1000';
+      } else {
+        progressBar.className = 'h-full bg-gradient-to-r from-red-500 to-pink-500 rounded-full transition-all duration-1000';
+      }
+    }
+
+    function startTimer() {
+      if (started) return;
+      started = true;
+      // open the sheet in a new tab
+      window.open(SHEET_URL, '_blank');
+
+      timeAllowedEl.textContent = formatTime(remaining);
+
+      timerInterval = setInterval(() => {
+        remaining -= 1;
+        timeAllowedEl.textContent = formatTime(remaining);
+        updateProgress();
+        
+        if (remaining <= 0) {
+          clearInterval(timerInterval);
+          timeAllowedEl.textContent = '00:00';
+          timeAllowedEl.classList.add('text-red-500');
+          alert('⏰ Time is up! Please return to the Google Sheet and submit your work.');
+        }
+      }, 1000);
+
+      startBtn.classList.add('opacity-60', 'cursor-not-allowed');
+      startBtn.disabled = true;
+      startBtn.innerHTML = '<span class="relative z-10">⏳ Assessment In Progress...</span>';
+    }
+
+    function finishAssessment() {
+      if (timerInterval) clearInterval(timerInterval);
+      started = false;
+      remaining = totalSeconds;
+      timeAllowedEl.textContent = formatTime(totalSeconds);
+      timeAllowedEl.classList.remove('text-red-500');
+      updateProgress();
+      startBtn.disabled = false;
+      startBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+      startBtn.innerHTML = '<span class="relative z-10">🚀 Start Assessment</span>';
+      
+      // Success animation
+      finishBtn.innerHTML = '✨ Completed!';
+      setTimeout(() => {
+        finishBtn.innerHTML = '✅ Finish';
+      }, 2000);
+      
+      alert('🎉 Assessment finished successfully! If you completed the sheet, make sure you saved your changes.');
+    }
+
+    startBtn.addEventListener('click', startTimer);
+    finishBtn.addEventListener('click', finishAssessment);
+
+    // Initialize progress bar
+    updateProgress();
+  </script>
 </body>
 </html>
