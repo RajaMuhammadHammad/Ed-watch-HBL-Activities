@@ -6,345 +6,537 @@
   <title>Activity 4: Branch Budget Lab</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Animated gradient background */
-    .animated-bg {
-      background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
     }
     
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    /* Animated Background */
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      overflow: hidden;
     }
-
-    /* Floating particles */
-    .particle {
+    
+    .floating-shapes {
       position: absolute;
-      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .shape {
+      position: absolute;
       background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
       animation: float 6s ease-in-out infinite;
     }
     
-    .particle:nth-child(1) { width: 4px; height: 4px; left: 20%; animation-delay: 0s; }
-    .particle:nth-child(2) { width: 6px; height: 6px; left: 80%; animation-delay: 1s; }
-    .particle:nth-child(3) { width: 3px; height: 3px; left: 40%; animation-delay: 2s; }
-    .particle:nth-child(4) { width: 5px; height: 5px; left: 70%; animation-delay: 3s; }
-    .particle:nth-child(5) { width: 4px; height: 4px; left: 10%; animation-delay: 4s; }
-    .particle:nth-child(6) { width: 3px; height: 3px; left: 90%; animation-delay: 5s; }
-
+    .shape:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      left: 10%;
+      animation-delay: 0s;
+      animation-duration: 6s;
+    }
+    
+    .shape:nth-child(2) {
+      width: 120px;
+      height: 120px;
+      left: 80%;
+      animation-delay: 2s;
+      animation-duration: 8s;
+    }
+    
+    .shape:nth-child(3) {
+      width: 60px;
+      height: 60px;
+      left: 60%;
+      animation-delay: 4s;
+      animation-duration: 7s;
+    }
+    
+    .shape:nth-child(4) {
+      width: 100px;
+      height: 100px;
+      left: 30%;
+      animation-delay: 1s;
+      animation-duration: 9s;
+    }
+    
+    .shape:nth-child(5) {
+      width: 40px;
+      height: 40px;
+      left: 70%;
+      animation-delay: 3s;
+      animation-duration: 5s;
+    }
+    
     @keyframes float {
-      0%, 100% { transform: translateY(0px); opacity: 0.3; }
-      50% { transform: translateY(-20px); opacity: 0.8; }
+      0%, 100% {
+        transform: translateY(100vh) translateX(0px) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(50vh) translateX(100px) rotate(180deg);
+        opacity: 0.7;
+      }
     }
-
-    /* Glass morphism effect */
-    .glass {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+    
+    /* Gradient border effect */
+    .gradient-border {
+      background: linear-gradient(white, white) padding-box,
+                  linear-gradient(135deg, #667eea, #764ba2) border-box;
+      border: 2px solid transparent;
     }
-
-    /* Button hover animations */
+    
+    /* Professional button styles */
     .btn-primary {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
       transition: all 0.3s ease;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      position: relative;
-      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
     }
-
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    .btn-primary:hover::before {
-      left: 100%;
-    }
-
+    
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+      box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+      background: linear-gradient(135deg, #4338ca, #6d28d9);
     }
-
+    
     .btn-secondary {
+      background: linear-gradient(135deg, #059669, #0d9488);
       transition: all 0.3s ease;
-      background: linear-gradient(135deg, #f7fafc, #edf2f7);
-      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
     }
-
+    
     .btn-secondary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      background: linear-gradient(135deg, #edf2f7, #e2e8f0);
+      box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
+      background: linear-gradient(135deg, #047857, #0f766e);
     }
-
-    /* Timer glow effect */
-    .timer-glow {
-      text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.8; }
-    }
-
-    /* Card hover effect */
-    .card-hover {
+    
+    .btn-success {
+      background: linear-gradient(135deg, #16a34a, #15803d);
       transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
     }
-
-    .card-hover:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    
+    .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(22, 163, 74, 0.4);
+      background: linear-gradient(135deg, #15803d, #166534);
     }
-
-    /* Checklist animations */
-    .checklist-item {
-      transition: all 0.2s ease;
-      padding: 8px;
-      border-radius: 6px;
+    
+    /* Card animations */
+    .fade-in {
+      animation: fadeIn 0.6s ease-out;
     }
-
-    .checklist-item:hover {
-      background: rgba(102, 126, 234, 0.1);
-      transform: translateX(5px);
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Professional styling */
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .timer-glow {
+      text-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
+    }
+    
+    /* Grid layout improvements */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    
+    @media (max-width: 640px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
-<body class="animated-bg min-h-screen flex items-center justify-center p-2 sm:p-4 lg:p-6 relative overflow-hidden">
-  <!-- Floating particles -->
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
+<body class="min-h-screen flex items-center justify-center p-6">
 
-  <div class="max-w-7xl w-full h-[95vh] glass rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 lg:p-12 card-hover relative z-10 flex flex-col">
-    <header class="mb-8 text-center">
-      <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-         Activity 4:Branch Budget Lab
-      </h1>
-    </header>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="floating-shapes">
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+    </div>
+  </div>
 
-    <section class="grid gap-4 sm:gap-6 lg:gap-8 lg:grid-cols-2 items-start flex-1 overflow-auto">
-      <div class="space-y-6">
-        <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-6 border border-blue-200">
-          <h2 class="text-xl font-bold text-gray-800 flex items-center">
-            <svg class="w-5 h-5 mr-2 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            Objective
-          </h2>
-          <p class="mt-3 text-gray-700 leading-relaxed">
-            Draft a comprehensive mini operating budget, categorize expenditures as 
-            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-md font-semibold">CapEx</span> vs 
-            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-md font-semibold">OpEx</span>, 
-            and document your strategic assumptions.
-          </p>
-        </div>
-
-        <div class="bg-gradient-to-br from-purple-50 to-pink-100 rounded-2xl p-6 border border-purple-200">
-          <h3 class="text-xl font-bold text-gray-800 flex items-center mb-4">
-            <svg class="w-5 h-5 mr-2 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/>
-            </svg>
-            Instructions
-          </h3>
-          <ol class="space-y-3 text-gray-700">
-            <li class="flex items-start">
-              <span class="flex-shrink-0 w-6 h-6 bg-indigo-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5">1</span>
-              <span>Click <strong class="text-indigo-600">Start Assessment</strong> to open the requirements spreadsheet (Google Sheet) in a new tab.</span>
-            </li>
-            <li class="flex items-start">
-              <span class="flex-shrink-0 w-6 h-6 bg-indigo-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5">2</span>
-              <span>The timer (<strong>35 minutes</strong>) will start automatically when you click Start — you will see the remaining time displayed prominently.</span>
-            </li>
-            <li class="flex items-start">
-              <span class="flex-shrink-0 w-6 h-6 bg-indigo-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5">3</span>
-              <span>Work in the Google Sheet: fill required fields, tag items as <em class="text-green-600 font-semibold">CapEx</em> or <em class="text-blue-600 font-semibold">OpEx</em>, and document assumptions.</span>
-            </li>
-            <li class="flex items-start">
-              <span class="flex-shrink-0 w-6 h-6 bg-indigo-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5">4</span>
-              <span>When finished, return here and click <strong class="text-gray-600">Finish</strong> (or close the sheet). Timer stops automatically at zero.</span>
-            </li>
-          </ol>
-        </div>
-
-        
-        <div class="flex gap-4 pt-4">
-          <button id="startBtn" class="flex-1 px-6 py-4 btn-primary text-white rounded-xl shadow-lg font-semibold text-lg relative">
-            <span class="relative z-10">🚀 Start Assessment</span>
-          </button>
-          <button id="finishBtn" class="px-6 py-4 btn-secondary text-gray-700 rounded-xl shadow-lg font-semibold text-lg">
-            ✅ Finish
-          </button>
-        </div>
-      </div>
-
-      <div class="flex flex-col items-center justify-center">
-        <!-- Timer Section -->
-        <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-8 text-center border border-indigo-100 shadow-inner mb-6 w-full">
-          <div class="flex items-center justify-center mb-3">
-            <svg class="w-6 h-6 text-indigo-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
-            </svg>
-            <p class="uppercase text-sm font-bold text-indigo-600">Time Allowed</p>
-          </div>
-          <div id="timeAllowed" class="text-6xl md:text-8xl font-black bg-gradient-to-br from-indigo-600 to-purple-600 bg-clip-text text-transparent timer-glow">
-            35:00
-          </div>
-          <p class="mt-4 text-gray-600 font-medium">
-            Timer starts when you click <span class="font-bold text-indigo-600">Start Assessment</span>
-          </p>
-          <div class="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden">
-            <div id="progressBar" class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-1000" style="width: 100%;"></div>
-          </div>
-        </div>
-
-        <!-- Enhanced Checklist -->
-        <div class="w-full bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-6 border border-gray-200">
-          <h4 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
-            <svg class="w-5 h-5 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-            </svg>
-            Success Checklist
-          </h4>
-          <div class="space-y-2">
-            <div class="checklist-item rounded-lg">
-              <div class="flex items-center">
-                <div class="w-4 h-4 border-2 border-gray-300 rounded mr-3"></div>
-                <span class="text-gray-700">Draft comprehensive revenue and expense entries</span>
-              </div>
-            </div>
-            <div class="checklist-item rounded-lg">
-              <div class="flex items-center">
-                <div class="w-4 h-4 border-2 border-gray-300 rounded mr-3"></div>
-                <span class="text-gray-700">Categorize each line item as <strong class="text-green-600">CapEx</strong> or <strong class="text-blue-600">OpEx</strong></span>
-              </div>
-            </div>
-            <div class="checklist-item rounded-lg">
-              <div class="flex items-center">
-                <div class="w-4 h-4 border-2 border-gray-300 rounded mr-3"></div>
-                <span class="text-gray-700">Document strategic assumptions (100–200 words)</span>
-              </div>
-            </div>
-            <div class="checklist-item rounded-lg">
-              <div class="flex items-center">
-                <div class="w-4 h-4 border-2 border-gray-300 rounded mr-3"></div>
-                <span class="text-gray-700">Verify calculations and professional formatting</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer class="mt-4 pt-4 border-t border-gray-200 text-center flex-shrink-0">
-      <div class="flex items-center justify-center text-gray-500">
-        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+  <!-- Page 1: Intro -->
+  <div id="page1" class="max-w-4xl w-full glass-effect rounded-3xl shadow-2xl p-10 fade-in">
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl mb-4">
+        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
         </svg>
-        <span class="text-sm font-medium">Branch Budget Lab • 35 Minutes Assessment</span>
       </div>
-    </footer>
+      <h1 class="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
+        Activity 4: Branch Budget Lab
+      </h1>
+      <p class="text-gray-500 font-medium">Financial Analysis & Strategic Planning Assessment</p>
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-8 mb-8">
+      <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
+        <div class="flex items-center mb-4">
+          <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-3">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h2 class="text-xl font-semibold text-gray-800">Objective</h2>
+        </div>
+        <p class="text-gray-600 leading-relaxed">
+          Draft a comprehensive mini operating budget, categorize expenditures as 
+          <span class="inline-flex items-center px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full font-semibold text-sm">
+            <span class="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>CapEx
+          </span> vs 
+          <span class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full font-semibold text-sm">
+            <span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>OpEx
+          </span>, 
+          and document your strategic assumptions.
+        </p>
+      </div>
+
+      <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-100">
+        <div class="flex items-center mb-4">
+          <div class="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center mr-3">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h2 class="text-xl font-semibold text-gray-800">Instructions</h2>
+        </div>
+        <ul class="space-y-3 text-gray-600">
+          <li class="flex items-start">
+            <span class="inline-block w-2 h-2 bg-amber-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+            You will have <strong class="text-amber-700">35 minutes</strong> to complete the assessment.
+          </li>
+          <li class="flex items-start">
+            <span class="inline-block w-2 h-2 bg-amber-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+            Click your assigned team button to open your Google Sheet.
+          </li>
+          <li class="flex items-start">
+            <span class="inline-block w-2 h-2 bg-amber-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+            Once clicked, the timer will start and other buttons will be disabled.
+          </li>
+          <li class="flex items-start">
+            <span class="inline-block w-2 h-2 bg-amber-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+            Click <span class="font-semibold text-green-600">Finish</span> when done or wait until the timer ends.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button onclick="goToPage(2)" class="btn-primary px-8 py-4 text-white rounded-2xl font-semibold text-lg inline-flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
+        Start Assessment
+      </button>
+    </div>
+  </div>
+
+  <!-- Page 2: Assessment -->
+  <div id="page2" class="hidden max-w-5xl w-full glass-effect rounded-3xl shadow-2xl p-10 text-center fade-in">
+    <div class="mb-8">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl mb-4">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+        </svg>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">Assessment In Progress</h1>
+      <p class="text-gray-600 text-lg">You have <strong class="text-purple-600">35 minutes</strong> to complete the Google Sheet assignment.</p>
+    </div>
+
+    <!-- Enhanced Timer -->
+    <div class="mb-8 bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl p-6 border border-purple-100">
+      <h2 class="text-lg font-semibold text-gray-700 mb-2 flex items-center justify-center">
+        <svg class="w-5 h-5 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        Remaining Time
+      </h2>
+      <div id="timeDisplay" class="text-6xl font-black bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent timer-glow">35:00</div>
+      <div class="mt-2">
+        <div class="w-full bg-gray-200 rounded-full h-2">
+          <div id="progressBar" class="bg-gradient-to-r from-purple-500 to-indigo-500 h-2 rounded-full transition-all duration-1000" style="width: 100%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced Team Selection -->
+    <div class="mb-8">
+      <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center justify-center">
+        <svg class="w-6 h-6 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+        </svg>
+        Select Your Team Assignment
+      </h3>
+      <div id="sheetButtons" class="team-grid max-w-4xl mx-auto">
+        <button onclick="openSheet(0)" class="sheetBtn btn-secondary px-6 py-4 text-white rounded-2xl font-semibold flex items-center justify-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+          Liquidity Legends
+        </button>
+        <button onclick="openSheet(1)" class="sheetBtn btn-secondary px-6 py-4 text-white rounded-2xl font-semibold flex items-center justify-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+          </svg>
+          Cash Panthers
+        </button>
+        <button onclick="openSheet(2)" class="sheetBtn btn-secondary px-6 py-4 text-white rounded-2xl font-semibold flex items-center justify-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+          Risk Busters
+        </button>
+        <button onclick="openSheet(3)" class="sheetBtn btn-secondary px-6 py-4 text-white rounded-2xl font-semibold flex items-center justify-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+          </svg>
+          Credit Crusaders
+        </button>
+        <button onclick="openSheet(4)" class="sheetBtn btn-secondary px-6 py-4 text-white rounded-2xl font-semibold flex items-center justify-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          </svg>
+          Asset Avengers
+        </button>
+        <button onclick="openSheet(5)" class="sheetBtn btn-secondary px-6 py-4 text-white rounded-2xl font-semibold flex items-center justify-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+          Margin Mavericks
+        </button>
+      </div>
+    </div>
+
+    <!-- Status Information -->
+    <div class="bg-gradient-to-r from-gray-50 to-slate-50 rounded-2xl p-6 border border-gray-200 mb-8">
+      <div class="flex items-center justify-center text-gray-600">
+        <svg class="w-5 h-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span class="font-medium">Select your team assignment to begin the assessment</span>
+      </div>
+    </div>
+
+    <!-- Enhanced Finish Button -->
+    <div>
+      <button id="finishBtn" disabled class="px-8 py-4 bg-gray-200 text-gray-400 rounded-2xl shadow cursor-not-allowed font-semibold text-lg inline-flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        Complete Assessment
+      </button>
+    </div>
+  </div>
+
+  <!-- Page 3: Completion -->
+  <div id="page3" class="hidden max-w-lg w-full glass-effect rounded-3xl shadow-2xl p-10 text-center fade-in">
+    <div class="mb-6">
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl mb-4">
+        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">Assessment Completed</h1>
+      <p class="text-gray-600 text-lg leading-relaxed">
+        Excellent work! Your submission has been recorded successfully. 
+        The evaluation team will review and score your budget analysis.
+      </p>
+    </div>
+    
+    <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-100 mb-6">
+      <div class="flex items-center justify-center text-green-700">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5-5-5h5v-6h-5l5-5 5 5h-5v6z"></path>
+        </svg>
+        <span class="font-medium">Results will be available within few minutes</span>
+      </div>
+    </div>
+    
+    <button onclick="window.location.href='index.html'" class="btn-success px-8 py-4 text-white rounded-2xl font-semibold text-lg inline-flex items-center">
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+      </svg>
+      Return to Dashboard
+    </button>
   </div>
 
   <script>
-    // === USER: replace this with your real Google Sheet URL ===
-    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/REPLACE_WITH_YOUR_SHEET_ID/edit';
-    // =======================================================
+    const SHEET_URLS = [
+      "https://docs.google.com/spreadsheets/d/1QIvxtlXuXuIzWUxCBFUCNq4JGFXShAlB/edit?usp=sharing&ouid=103986904667134823600&rtpof=true&sd=true",
+      "https://docs.google.com/spreadsheets/d/1vqI4M6D4wOcra4aqLdMnBwF_2XJ0iblq/edit?usp=sharing&ouid=103986904667134823600&rtpof=true&sd=true",
+      "https://docs.google.com/spreadsheets/d/1AJOMiINfj7vIOgLE9lLSU48vgwYFJNC4/edit?usp=sharing&ouid=103986904667134823600&rtpof=true&sd=true",
+      "https://docs.google.com/spreadsheets/d/1-KZYR-3vYvPydt6l2A1kD95bcgnHtDwI/edit?usp=sharing&ouid=103986904667134823600&rtpof=true&sd=true",
+      "https://docs.google.com/spreadsheets/d/1WPVXxjAXkeAzFb8rGh0DqfUk09ngDq9l/edit?usp=sharing&ouid=103986904667134823600&rtpof=true&sd=true",
+      "https://docs.google.com/spreadsheets/d/17V3wfzs2xqzj3WBXUwvbty_ZM6r5cLnJ/edit?usp=sharing&ouid=103986904667134823600&rtpof=true&sd=true"
+    ];
 
-    const startBtn = document.getElementById('startBtn');
-    const finishBtn = document.getElementById('finishBtn');
-    const timeAllowedEl = document.getElementById('timeAllowed');
-    const progressBar = document.getElementById('progressBar');
-
-    let totalSeconds = 35 * 60; // 35 minutes
+    let totalSeconds = 35 * 60;
     let remaining = totalSeconds;
     let timerInterval = null;
-    let started = false;
 
-    function formatTime(s) {
-      const mm = Math.floor(s / 60).toString().padStart(2, '0');
-      const ss = (s % 60).toString().padStart(2, '0');
-      return `${mm}:${ss}`;
-    }
+    const timeDisplay = document.getElementById("timeDisplay");
+    const finishBtn = document.getElementById("finishBtn");
+    const progressBar = document.getElementById("progressBar");
 
-    function updateProgress() {
-      const progress = (remaining / totalSeconds) * 100;
-      progressBar.style.width = `${progress}%`;
+    function goToPage(n) {
+      document.getElementById("page1").classList.add("hidden");
+      document.getElementById("page2").classList.add("hidden");
+      document.getElementById("page3").classList.add("hidden");
+      document.getElementById("page" + n).classList.remove("hidden");
       
-      // Change color as time runs out
-      if (progress > 50) {
-        progressBar.className = 'h-full bg-gradient-to-r from-green-500 to-blue-500 rounded-full transition-all duration-1000';
-      } else if (progress > 25) {
-        progressBar.className = 'h-full bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full transition-all duration-1000';
-      } else {
-        progressBar.className = 'h-full bg-gradient-to-r from-red-500 to-pink-500 rounded-full transition-all duration-1000';
+      if (n === 2) {
+        resetTimer();
       }
     }
 
-    function startTimer() {
-      if (started) return;
-      started = true;
-      // open the sheet in a new tab
-      window.open(SHEET_URL, '_blank');
-
-      timeAllowedEl.textContent = formatTime(remaining);
-
-      timerInterval = setInterval(() => {
-        remaining -= 1;
-        timeAllowedEl.textContent = formatTime(remaining);
-        updateProgress();
-        
-        if (remaining <= 0) {
-          clearInterval(timerInterval);
-          timeAllowedEl.textContent = '00:00';
-          timeAllowedEl.classList.add('text-red-500');
-          alert('⏰ Time is up! Please return to the Google Sheet and submit your work.');
-        }
-      }, 1000);
-
-      startBtn.classList.add('opacity-60', 'cursor-not-allowed');
-      startBtn.disabled = true;
-      startBtn.innerHTML = '<span class="relative z-10">⏳ Assessment In Progress...</span>';
+    function formatTime(sec) {
+      const mm = String(Math.floor(sec / 60)).padStart(2, '0');
+      const ss = String(sec % 60).padStart(2, '0');
+      return `${mm}:${ss}`;
     }
 
-    function finishAssessment() {
+    function updateProgressBar() {
+      const progress = (remaining / totalSeconds) * 100;
+      progressBar.style.width = progress + '%';
+      
+      // Change color based on remaining time
+      if (progress > 50) {
+        progressBar.className = "bg-gradient-to-r from-green-500 to-emerald-500 h-2 rounded-full transition-all duration-1000";
+      } else if (progress > 25) {
+        progressBar.className = "bg-gradient-to-r from-yellow-500 to-orange-500 h-2 rounded-full transition-all duration-1000";
+      } else {
+        progressBar.className = "bg-gradient-to-r from-red-500 to-pink-500 h-2 rounded-full transition-all duration-1000";
+      }
+    }
+
+    function resetTimer() {
       if (timerInterval) clearInterval(timerInterval);
-      started = false;
       remaining = totalSeconds;
-      timeAllowedEl.textContent = formatTime(totalSeconds);
-      timeAllowedEl.classList.remove('text-red-500');
-      updateProgress();
-      startBtn.disabled = false;
-      startBtn.classList.remove('opacity-60', 'cursor-not-allowed');
-      startBtn.innerHTML = '<span class="relative z-10">🚀 Start Assessment</span>';
-      
-      // Success animation
-      finishBtn.innerHTML = '✨ Completed!';
-      setTimeout(() => {
-        finishBtn.innerHTML = '✅ Finish';
-      }, 2000);
-      
-      alert('🎉 Assessment finished successfully! If you completed the sheet, make sure you saved your changes.');
+      timeDisplay.textContent = formatTime(remaining);
+      updateProgressBar();
+      finishBtn.disabled = true;
+      finishBtn.className = "px-8 py-4 bg-gray-200 text-gray-400 rounded-2xl shadow cursor-not-allowed font-semibold text-lg inline-flex items-center";
     }
 
-    startBtn.addEventListener('click', startTimer);
-    finishBtn.addEventListener('click', finishAssessment);
+    function openSheet(index) {
+      window.open(SHEET_URLS[index], "_blank");
 
-    // Initialize progress bar
-    updateProgress();
+      // Disable all sheet buttons after one is clicked
+      const buttons = document.querySelectorAll(".sheetBtn");
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        btn.className = "px-6 py-4 bg-gray-200 text-gray-400 rounded-2xl shadow cursor-not-allowed font-semibold flex items-center justify-center";
+      });
+
+      // Enable Finish button with professional styling
+      finishBtn.disabled = false;
+      finishBtn.className = "btn-success px-8 py-4 text-white rounded-2xl font-semibold text-lg inline-flex items-center";
+
+      // Start timer if not already running
+      if (!timerInterval) {
+        timerInterval = setInterval(() => {
+          remaining--;
+          timeDisplay.textContent = formatTime(remaining);
+          updateProgressBar();
+          
+          if (remaining <= 0) {
+            clearInterval(timerInterval);
+            showNotification("⏰ Time is up! Your assessment has ended.", "warning");
+            setTimeout(() => goToPage(3), 2000);
+          }
+        }, 1000);
+      }
+    }
+
+    function showNotification(message, type = "info") {
+      const notification = document.createElement("div");
+      notification.className = `fixed top-4 right-4 px-6 py-4 rounded-2xl shadow-lg z-50 font-semibold transform transition-all duration-300 translate-x-full`;
+      
+      if (type === "success") {
+        notification.classList.add("bg-green-500", "text-white");
+      } else if (type === "warning") {
+        notification.classList.add("bg-amber-500", "text-white");
+      } else {
+        notification.classList.add("bg-blue-500", "text-white");
+      }
+      
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      // Animate in
+      setTimeout(() => {
+        notification.classList.remove("translate-x-full");
+      }, 100);
+      
+      // Remove after 3 seconds
+      setTimeout(() => {
+        notification.classList.add("translate-x-full");
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+
+    finishBtn.addEventListener("click", () => {
+      if (timerInterval) clearInterval(timerInterval);
+      showNotification("🎉 Assessment completed successfully! Please ensure your sheet is saved.", "success");
+      setTimeout(() => goToPage(3), 1500);
+    });
+
+    // Add page transition effects
+    document.addEventListener("DOMContentLoaded", () => {
+      // Add subtle animations to buttons on hover
+      const buttons = document.querySelectorAll("button");
+      buttons.forEach(btn => {
+        btn.addEventListener("mouseenter", () => {
+          if (!btn.disabled) {
+            btn.style.transform = "translateY(-2px)";
+          }
+        });
+        btn.addEventListener("mouseleave", () => {
+          if (!btn.disabled) {
+            btn.style.transform = "translateY(0)";
+          }
+        });
+      });
+    });
   </script>
 </body>
 </html>
